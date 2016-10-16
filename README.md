@@ -1,21 +1,20 @@
-# Science Hack Day project
-## 15.-16.10.2016
+# Science Hack Day project 15.-16.10.2016
 This is a two player game of boxing.
 
 # Installation pre-requisites
 Make sure you have git, python3 and python-virtualenv.
-## Debian based and Ubuntu based
+### Debian based and Ubuntu based
 `sudo apt-get install git python3 python-virtualenv`
-## Arch based
+### Arch based
 `sudo pacman -S git python3 python-virtualenv`
-## Windows
+### Windows
 Have fun. :)
 
 # Installation
 First clone the repository with
 `git clone https://github.com/MKolman/SHD-2016.git`
-Now enter the repository and create a python virtualenv
-`virtualenv venv -p $(which python3)`
+Enter the created `SHD-2016` repository and run
+`./setup.sh`
 
 
 # Playing the game
@@ -28,3 +27,7 @@ Select the player and hand position for each phone. On your computer select
 The phones will indicate their position with colours. Red for attack position,
 blue for neutral position and green for blocking position. In order to block
 enemy hits both hands have to be in blocking position.
+
+# Contributors
+Žiga [Gosar | Brečič]
+Maks Kolman
