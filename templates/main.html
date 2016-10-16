@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title> BOX </title>
+        <link rel="icon" href="/static/gloves.png" type="image/png" />
+        <link rel="stylesheet" type="text/css" href="/static/style.css"/>
+        <script src="/static/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}
+            <h1> Welcome! </h1>
+            <p>
+                Here you can play a two-player boxing game using your phones. Each player needs two phones -- one for each hand. They will also need a screen on which to observe the battle.
+            </p>
+            <a id="playgame" href="/game">Watch game!</a><br/>
+            <div class="goplayer player1">
+                Player 1<br/><br/>
+                <a class="goplayer player1" href="/input?player=1&hand=left">
+                    Left
+                </a><a class="goplayer player1" href="/input?player=1&hand=right">
+                    Right
+                </a>
+            </div><div class="goplayer player2">
+                Player 2<br/><br/>
+                <a class="goplayer player2" href="/input?player=2&hand=left">
+                    Left
+                </a><a class="goplayer player2" href="/input?player=2&hand=right">
+                    Right
+                </a>
+            </div>
+
+            <br/>
+            {% endblock %}
+            <p class="footer">
+                Made by team <i>AHA</i> during <a href="http://ljubljana.sciencehackday.org/en/">Science Hack Day Ljubljana</a> 15.-16.10.2016.
+                <a href="https://github.com/MKolman/SHD-2016">View project on github.</a>
+            </p>
+        </div>
+    </body>
+</html>

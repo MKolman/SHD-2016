@@ -1,0 +1,58 @@
+{%extends "main.html" %}
+{% block head %}
+    <script>
+        function parse(val) {
+            var result = "Not found",
+                tmp = [];
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+                    if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+            });
+            return result;
+        }
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var last_call = new Date();
+        var hand = parse("hand");
+        var player = parse("player");
+        console.log("ri", hand, player);
+        function send(data) {
+            var b = new Date();
+            if (b - last_call > 300) {
+                last_call = b;
+                $.post("/api", data={data:data, player: player, hand:hand});
+            }
+        }
+        if (window.DeviceOrientationEvent) {
+            console.log("deviceorientation STARTED");
+            window.addEventListener("devicemotion", function () {
+                var g = event.accelerationIncludingGravity;
+                if (iOS) g.z *= -1;
+                send("" + g.x + " " + g.y + " " + g.z);
+                var con = $("body");
+                var action = $("#content h1.action");
+                if (g.z < -8) {
+                    con.css("background-color", "red");
+                    action.html("Hit");
+                }else if (Math.abs(g.x) > 8) {
+                    con.css("background-color", "green");
+                    action.html("Block");
+                } else {
+                    con.css("background-color", "blue");
+                    action.html("Neutral");
+                }
+
+            }, true);
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1 class="description"> </h1>
+    <h1 class="action"> </h1>
+    <script>
+        $("#content h1.description").html("Player " + player + ", " + hand + " hand.");
+    </script>
+{% endblock %}

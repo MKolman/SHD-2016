@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block head %}
+    <script>
+        function get_class() {
+            $.get("/status", function(dat) {
+                // console.log(dat);
+                dat = dat.split(" ")
+                jQuery("#player1img").attr("class", dat[0]);
+                jQuery("#player2img").attr("class", dat[1]);
+                jQuery("#hp1").css("height", dat[2]+"px");
+                jQuery("#hp2").css("height", dat[3]+"px");
+                jQuery("#hr span").html(dat[4]);
+                jQuery("#hr span").css("width", dat[4] + "px");
+                setTimeout(get_class, 100);
+            });
+        }
+        get_class();
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1> FIGHT! </h1>
+    <span id="hp1" class="hp"></span>
+    <span id="player1img" class="down"></span>
+    <span id="player2img" class="down"></span>
+    <span id="hp2" class="hp"></span>
+{% endblock %}

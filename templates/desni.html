@@ -1,0 +1,34 @@
+{%extends "main.html" %}
+{% block head %}
+    <script>
+        var last = new Date();
+        function send(txt) {
+            var b = new Date();
+            if (b - last > 100) {
+                last = b;
+                $.post("/api", data={data:txt});
+            }
+        }
+        if (window.DeviceOrientationEvent) {
+            console.log("deviceorientation STARTED");
+            window.addEventListener("devicemotion", function () {
+                var g = event.accelerationIncludingGravity;
+                send("desni " + g.x + " " + g.y + " " + g.z);
+            }, true);
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <a href="javascript:send('gor')"> gor </a> <br/>
+    <a href="javascript:send('levi')"> levo </a>
+    <a href="javascript:send('desni')"> desno </a><br/>
+    <a href="javascript:send('dol')"> dol </a>
+    <h1 id="smer"></h1>
+    <!--h1 id="alpha"></h1>
+    <h1 id="beta"></h1>
+    <h1 id="gamma"></h1><br/><br/>
+    <h1 id="x"></h1>
+    <h1 id="y"></h1>
+    <h1 id="z"></h1-->
+{% endblock %}
