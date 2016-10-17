@@ -1,6 +1,4 @@
-from flask import Flask, render_template, request, Response
-import time
-import sys
+from flask import Flask, render_template, request
 
 # Create flask app
 app = Flask(__name__)
@@ -9,6 +7,7 @@ state = ["down", "down"]
 health = [400, 400]
 last_acc = [{"left": [-9, 0, 0], "right": [-9, 0, 0]},
             {"left": [-9, 0, 0], "right": [-9, 0, 0]}]
+
 
 @app.route("/")
 def root():
@@ -21,9 +20,11 @@ def root():
 def game():
     """ Page where the main screen is located
     Players health is reset on every reload """
-    global health, state
+    global health, state, last_acc
     health = [400, 400]
     state = ["down", "down"]
+    last_acc = [{"left": [-9, 0, 0], "right": [-9, 0, 0]},
+                {"left": [-9, 0, 0], "right": [-9, 0, 0]}]
     return render_template("game.html")
 
 
@@ -40,7 +41,7 @@ def api():
 
     # Get POST request data
     acc = request.form.get("data").split()
-    player = int(request.form.get("player"))-1
+    player = int(request.form.get("player")) - 1
     hand = request.form.get("hand")
 
     # Disable dead players from doing anything
@@ -55,7 +56,7 @@ def api():
         if last_acc[player][direction][2] < -8:
             if state[player] != direction:
                 if state[not player] == "up":
-                    health[not player] -= 2;
+                    health[not player] -= 2
                 else:
                     health[not player] -= 20
                 if health[not player] <= 0:
@@ -64,7 +65,8 @@ def api():
             break
 
     else:
-        if abs(last_acc[player]["left"][0]) > 8 and abs(last_acc[player]["right"][0]) > 8:
+        if abs(last_acc[player]["left"][0]) > 8 and \
+                abs(last_acc[player]["right"][0]) > 8:
             # Check if the player put up a block
             state[player] = "up"
         elif health[not player] <= 0:
