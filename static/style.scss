@@ -66,11 +66,17 @@ a.goplayer {
 .hp {
     &#hp1 {
         float: left;
-        background-color: blue;
+        background-color: #d4d4ff;
+        span {
+            background-color: blue;
+        }
     }
     &#hp2 {
         float: right;
-        background-color: red;
+        background-color: #ffd4d4;
+        span {
+            background-color: red;
+        }
     }
     height: 400px;
     width: 25px;

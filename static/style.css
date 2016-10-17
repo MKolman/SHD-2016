@@ -64,10 +64,14 @@ a.goplayer {
   display: inline-block; }
   .hp#hp1 {
     float: left;
-    background-color: blue; }
+    background-color: #d4d4ff; }
+    .hp#hp1 span {
+      background-color: blue; }
   .hp#hp2 {
     float: right;
-    background-color: red; }
+    background-color: #ffd4d4; }
+    .hp#hp2 span {
+      background-color: red; }
 
 #player1img, #player2img {
   position: absolute;
