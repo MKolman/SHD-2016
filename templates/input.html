@@ -14,6 +14,8 @@
             return result;
         }
         var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var win_ph = /Windows Phone|iemobile|WPDesktop/i.test(navigator.userAgent);
+
         var last_call = new Date();
         var hand = parse("hand");
         var player = parse("player");
@@ -29,7 +31,7 @@
             console.log("deviceorientation STARTED");
             window.addEventListener("devicemotion", function () {
                 var g = event.accelerationIncludingGravity;
-                if (iOS) g.z *= -1;
+                if (iOS || win_ph) g.z *= -1;
                 send("" + g.x + " " + g.y + " " + g.z);
                 var con = $("body");
                 var action = $("#content h1.action");
