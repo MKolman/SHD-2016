@@ -85,5 +85,10 @@ def status():
     return " ".join(state) + " " + " ".join(map(str, health))
 
 
+@app.route('/help')
+def help():
+    return render_template("help.html")
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

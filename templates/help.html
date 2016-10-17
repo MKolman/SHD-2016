@@ -1,0 +1,64 @@
+{% extends "main.html" %}
+{% block head %}
+    <script>
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var win_ph = /Windows Phone|iemobile|WPDesktop/i.test(navigator.userAgent);
+        if (window.DeviceOrientationEvent) {
+            console.log("deviceorientation STARTED");
+            window.addEventListener("devicemotion", function () {
+                var g = event.accelerationIncludingGravity;
+                if (iOS || win_ph) g.z *= -1;
+                var action = $(".test-actions");
+                if (g.z < -8) {
+                    action.css("background-color", "red");
+                    action.html("Attack");
+                }else if (Math.abs(g.x) > 8) {
+                    action.css("background-color", "green");
+                    action.html("Block");
+                } else {
+                    action.css("background-color", "blue");
+                    action.html("Neutral");
+                }
+
+            }, true);
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1> Help </h1>
+    Welcome to the help page. We will try to answer your questions.
+
+    <h2> What do I do in this game? </h2>
+    You try to bring your opponent to 0 HP to knock them out. You do this by
+    punching and blocking with phones in your hands.
+
+    <h2> How should I hold my phone? </h2>
+    In your palm, landscape mode and with the screen facing your way:<br/>
+    <img height="200" src="/static/phone_hold.png" alt="phone_landscape"/>
+
+    <h2> What kind of actions can I perform? </h2>
+    Each phone can be in three different states: <span style="color:green">
+    block </span>, <span style="color:blue">neutral</span> and
+    <span style="color:red"> attack</span>. In order to block attacks both
+    hands have to be in block mode.
+
+    <h2>How do I perform actions?</h2>
+    Block attacks by raising your hand in front of your face. Attack by extending your hand and <b> rotating </b> it palm down.
+    <br/>
+    <img height="280" src="/static/block.jpg" alt="block"/>
+    <img height="280" src="/static/punch.jpg" alt="attack"/>
+    <br/>
+    <br/>
+    You can test actions here:
+    <div class="test-actions">
+        Neutral
+    </div>
+
+    <h2> I found a bug. Where can I report it? </h2>
+    You can report bugs on <a href="https://github.com/MKolman/SHD-2016/issues">the issue page on github</a>.
+
+    <h2> Who made this game? </h2>
+    This game was created by team AHA's three members Žiga Gosar, Žiga Brečič and Maks Kolman. They are physicists studying in Ljubljana.
+
+{% endblock %}
