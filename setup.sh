@@ -4,4 +4,5 @@ virtualenv venv -p $(which python3)
 . venv/bin/activate
 # Install python packages: flask
 pip install -r requirements.txt
+echo "0" > game_counter.txt
 

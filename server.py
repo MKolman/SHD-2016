@@ -9,11 +9,24 @@ last_acc = [{"left": [-9, 0, 0], "right": [-9, 0, 0]},
             {"left": [-9, 0, 0], "right": [-9, 0, 0]}]
 
 
+def get_counter():
+    num = 0
+    with open("game_counter.txt", "r") as counter:
+        num = int(counter.read())
+    return num
+
+
+def increase_counter():
+    num = get_counter()
+    with open("game_counter.txt", "w") as counter:
+        counter.write("{}\n".format(num + 1))
+
+
 @app.route("/")
 def root():
     """ Landing page
     A page where we select what kind of device we are serving """
-    return render_template("main.html")
+    return render_template("main.html", counter=get_counter())
 
 
 @app.route("/game")
@@ -56,10 +69,12 @@ def api():
         if last_acc[player][direction][2] < -8:
             if state[player] != direction:
                 if state[not player] == "up":
-                    health[not player] -= 2
+                    health[not player] -= 5
                 else:
                     health[not player] -= 20
                 if health[not player] <= 0:
+                    if state[not player] != "dead":
+                        increase_counter()
                     state[not player] = "dead"
             state[player] = direction
             break
