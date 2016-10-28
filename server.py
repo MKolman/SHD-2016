@@ -33,6 +33,12 @@ def root():
 def game():
     """ Page where the main screen is located
     Players health is reset on every reload """
+    return render_template("game.html")
+
+
+@app.route("/reset")
+def reset():
+    """ Reset the game """
     global health, state, last_acc
     health = [400, 400]
     state = ["down", "down"]
