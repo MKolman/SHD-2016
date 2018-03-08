@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve random_python scripts
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/web/SHD-Boxing/
+Environment="PATH=/home/web/SHD-Boxing/venv/bin"
+ExecStart=/home/web/SHD-Boxing/venv/bin/uwsgi --ini wsgi.ini
+
+[Install]
+WantedBy=multi-user.target
